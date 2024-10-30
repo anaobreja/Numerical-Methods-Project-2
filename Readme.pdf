@@ -1,0 +1,104 @@
+Nume: Obreja Ana-Maria
+Grupa: 311CAb
+An universitar: 2022-2023
+
+-------------------------------- Tema 2 - MN--------------------------------
+
+
+----------------------------------- Task 1 ---------------------------------
+
+In cadrul task-ului am facut compresia imaginilor alb-negru
+folosind SVD.
+
+M-am folosit de functia deja existenta in Octave, svd, pentru a descompune
+matricea imaginii initiale in cele 3 matrici: U, S, V.
+
+Matricea rezultata este de forma U_k * S_k * V_k', (avand dimensiunile
+n - nr de linii si m - nr de coloane), unde k este trimis ca parametru si:
+-> U_k este matricea formata din toate liniile si primele k coloane din 
+matricea initiala U;
+-> S_k este matricea formata din primele k linii si primele k coloane din 
+matricea initiala S;
+-> V_k este matricea formata din primele k linii si toate coloanele din 
+matricea initiala V.
+
+------------------------------------- Task 2----------------------------------
+
+In cadrul task-ului 2 am calculat compenentele principale cu ajutorul metodei
+SVD.
+
+Astfel am creat un vector care sa contina media valorilor de pe fiecare linie
+a matricei initiale.
+
+Am facut normalizarea matricei (am scazut de pe fiecare linie media).
+
+Am construit matricea Z conform formulei, apoi am descompus-o cu ajutorul
+metodei SVD in cele 3 matrice.
+
+Am construit matricea W din primele pcs (parametru al functiei) coloane din
+matricea V.
+
+Am gasit matricea finala conform formulelor (am calculat matricea Y si apoi am
+aproximat matricea finala). Am adaugat pe fiecare linie media calculata initial.
+
+--------------------------------------- Task 3-----------------------------------
+
+In cadrul task-ului 3 am calculat componentele principale cu ajutorul
+algoritmului bazat pe matricea de covarianta.
+
+Am urmat cativa pasi din task-ul anterior: am format vectorul de valori medii de
+pe fiecare linie si le-am scazut din matricea initiala. Am format matricea Z cu
+ajutorul formulei si am calculat vectorii si valorile proprii ale matricei de
+covarianta cu ajutorul functiei deja implementate, eig.
+
+Am pastrat valorile proprii intr-un vector si le-am sortat, mentinand pozitiile
+intr-un vector pentru a putea sorta si coloanele matricei V descrescator in
+functie de valorile proprii.
+
+Am gasit matricea finala conform formulelor (am calculat matricea Y si apoi am
+aproximat matricea finala). Am adaugat pe fiecare linie media calculata initial.
+
+
+------------------------------------------ Task 4---------------------------------
+
+In cadrul task-ului 4 am folosit un algoritm care are la baza PCA-ul (Principal
+component analysis) pentru a recunoaste cifrele din imaginile date.
+
+In cadrul functiei prepare_data am colectat datele din fisierul dat ca parametru.
+Am preluat din tabelul de imagini liniile precizate si valorile din vectorul de
+etichete.
+
+Am implementat functia visualise_image, care preia din matrice numarul liniei dat 
+ca parametru, transforma linia intr-o matrice de 28x28, pe care apoi o transpune.
+
+Pentru a aplica PCA pe matricea de antrenament, am implementat functia
+magic_with_pca (cu parametrii matricea de antrenament si numarul pcs). Am 
+calculat initial media de pe fiecare coloana si am scazut-o (am mentinut si valorile
+mediilor intr-un vector). Am calculat matricea de covarianta pe care am aplicat
+functia eig pentru a afla matricile V si S (mentin vectorii si valorile proprii).
+Am repetat pasul de la task-ul 3 pentru a ordona coloanele matricei V. Am mentinut
+in Vk primele pcs coloane ale lui V, am construit matricea Y prin schimbarea bazei
+matricei initiale si am calculat matricea finala train ca aproximatie a matricii
+initiale folosindu-ne de Vk.
+
+Am pregatit fotografiile prin inversarea pixelilor din matrice, transpunerea
+acesteia si transformarea intr-un vector linie.
+
+Pentru calcularea predictiei am aplicat algoritmul de k-nearest heighbours. Am
+calculat distanta Euclidiana pentru fiecare linie din matricea Y si vectorul test,
+pe care am mentinut-o de fiecare data intr-un vector distance. Am sortat vectorul
+si am pastrat indicii intr-un vector auxiliar. In functie de primele k valori din
+vectorul auxiliar am preluat valorile din vectorul de numere (din fisierul
+initial). Am calculat predictia drept mediana vectorului cu valori preluate.
+
+In final, am construit functia classifyImage pentru a aplica functiile anterioare si
+a calcula predictia. Astfel, ne-am folosit de functia magic_with_pca. Am scazut
+din imaginea im valorile din vectorul de medii. Am schimbat baza imaginii prin
+inmultirea matricei cu Vk si am calculat predictia cu ajutorul functiei KNN.
+
+Observatii:
+Pentru acuratetea calculelor, am transformat matricele initiale cu ajutorul carora
+am facut diverse operatii in tip double, revenind pentru matricele ulterioare la
+uint8.
+
+
